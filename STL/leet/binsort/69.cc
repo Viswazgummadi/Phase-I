@@ -7,7 +7,7 @@ class Solution
 public:
     int mySqrt(int x)
     {
-        if (x < 2)
+        if (x < 2) 
             return x; // Handle edge cases for 0 and 1
 
         int left = 1, right = x / 2; // Start search between 1 and x/2
@@ -20,7 +20,7 @@ public:
             // Check if mid * mid <= x to avoid overflow
             if ((long long)mid * mid <= x)
             {
-                result = mid;   // mid could be the answer
+                result = mid; // mid could be the answer
                 left = mid + 1; // Search the right half
             }
             else
