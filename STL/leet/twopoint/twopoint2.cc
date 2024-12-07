@@ -1,7 +1,30 @@
-// Auto-generated file: twopoint1.cc
+// Auto-generated file: twopoint2.cc
 #include <bits/stdc++.h>
-
+/*
+max length of substring that have <=k distinct numbers
+*/
 using namespace std;
+
+int freq[100100];
+int counter;
+
+int insert(int n)
+{
+    freq[n]++;
+    if (freq[n] == 1)
+    {
+        counter++;
+    }
+}
+
+int remove(int n)
+{
+    freq[n]--;
+    if (freq[n] == 0)
+    {
+        counter--;
+    }
+}
 
 void solve()
 {
@@ -19,27 +42,29 @@ void solve()
     int head = -1;
     int tail = 0;
 
-    int cnt0 = 0;
     // we assume head <= tail - 1
     // iterate till end // tail is at end
-    while(tail<n)
+    while (tail < n)
     {
         // for each tail check and eat max with head
-        // availalble for eating, next ele = arr[head+1] ,can eat only if non 0
-        // if total 0's <=k can take else we shld stop
-        while(head+1<n && cnt0+(1-arr[head+1])<=k)
+        // availalble for eating, coutner < k , the next element should be a new distinct element
+        // there is next element and
+        // after taking next element counter <= k , for that
+        // count<k and uniq can be taken || count <= k and similar can be taken
+        while (head + 1 < n && ((counter < k && freq[arr[head + 1]] == 0) || (counter <= k && freq[arr[head + 1]] > 0)))
         {
             // if we can take
             head++;
-            cnt0 += (1 - arr[head]);
+            insert(arr[head]);
+
         }
         ans = max(ans, head - tail + 1);
         // now we move tail
         // when? when only theres atleast one element
         // head-tail>=0
-        if(head>=tail)
+        if (head >= tail)
         {
-            cnt0 -= (1 - arr[tail]);
+            remove(arr[tail]);
             tail++;
         }
         else
